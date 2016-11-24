@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.huseyin.exemple.ciger_takip">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/agac"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="com.huseyin.exemple.ciger_takip.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action
+                    android:name="android.intent.action.MAIN" />
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.huseyin.exemple.ciger_takip.NewContact"
+            android:label="@string/title_new_contact"
+            android:parentActivityName="com.huseyin.exemple.ciger_takip.MainActivity"
+            >
+        </activity>
+        <activity
+            android:name="com.huseyin.exemple.ciger_takip.ShowContact"
+            android:label="@string/title_show_contact"
+            android:parentActivityName="com.huseyin.exemple.ciger_takip.MainActivity"
+            >
+        </activity>
+        <activity
+            android:name="com.huseyin.exemple.ciger_takip.UpdateContact"
+            android:label="@string/title_update_contact"
+            android:parentActivityName="com.huseyin.exemple.ciger_takip.MainActivity"
+            >
+        </activity>
+        <activity
+            android:name="com.huseyin.exemple.ciger_takip.Debit.DebitMain"
+            android:label="@string/title_debit_lists"
+            android:parentActivityName="com.huseyin.exemple.ciger_takip.MainActivity"
+            >
+        </activity>
+        <activity
+            android:name="com.huseyin.exemple.ciger_takip.Debit.NewDebit"
+            android:label="@string/title_debit_lists"
+            android:parentActivityName=".Debit.DebitMain"
+            >
+        </activity>
+    </application>
+
+</manifest>

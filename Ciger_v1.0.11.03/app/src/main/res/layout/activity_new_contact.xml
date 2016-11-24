@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    >
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="151dp"
+            app:srcCompat="@drawable/contacts"
+            android:id="@+id/imageView"
+            tools:ignore="ContentDescription,InefficientWeight"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        tools:ignore="DisableBaselineAlignment">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+
+
+            <TextView
+                android:text="@string/str_name_surname"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="9dp"
+                android:id="@+id/textView3"
+                android:textSize="20sp"
+                />
+
+            <TextView
+                android:text="@string/str_phone_no"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="9dp"
+                android:id="@+id/textView2"
+                android:textSize="20sp" />
+
+            <TextView
+                android:text="@string/str_show_email"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="9dp"
+                android:id="@+id/textView"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:id="@+id/etxtName"
+                android:textSize="20sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:id="@+id/etxtPhoneNumber"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:id="@+id/etxtEmail"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
