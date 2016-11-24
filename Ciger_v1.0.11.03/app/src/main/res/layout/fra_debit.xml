@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:srcCompat="@drawable/ciger_icon"
+        android:id="@+id/imv_debit_type"
+        android:layout_weight="4"
+        android:layout_marginTop="2dp"
+        android:contentDescription="@string/str_debit_icon"
+        />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="10"
+        android:layout_marginTop="7dp"
+        >
+        <TextView
+            android:text="Borcu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/debit_name"
+            />
+        <TextView
+            android:text="Borç Tarihi"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/debit_date"
+            />
+        <TextView
+            android:text="Borç Tahsilat Tarihi"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/debit_collection"
+            />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width = "0dp"
+        android:layout_height = "wrap_content"
+        android:contentDescription = "@string/menu_dots"
+        app:srcCompat = "@drawable/dots_vertical"
+        android:layout_weight="2"
+        android:layout_marginTop="20dp"
+        android:id="@+id/imv_dots"
+        />
+</LinearLayout>
