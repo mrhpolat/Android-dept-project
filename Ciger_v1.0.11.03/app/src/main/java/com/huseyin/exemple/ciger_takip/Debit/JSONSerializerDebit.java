@@ -25,9 +25,11 @@ public class JSONSerializerDebit {
     private String mFilename;
     private Context mContext;
 
+
     public JSONSerializerDebit(String fn, Context con){
         mFilename=fn;
         mContext=con;
+
     }
     public void save(List<DebitInfo> debitInfoList) throws IOException, JSONException{
         JSONArray jsonArray=new JSONArray();
@@ -47,8 +49,10 @@ public class JSONSerializerDebit {
     }
 
 
-    public ArrayList<DebitInfo> load() throws IOException,JSONException{
+    public ArrayList<DebitInfo> load(int id) throws IOException,JSONException{
+
         ArrayList<DebitInfo> debitInfoList = new ArrayList<DebitInfo>();
+        ArrayList<DebitInfo> debitInfoListTemp = new ArrayList<DebitInfo>();
 
         BufferedReader reader =null;
 
@@ -63,13 +67,26 @@ public class JSONSerializerDebit {
                 jsonString.append(line);
             }
             JSONArray jsonArray= (JSONArray) new JSONTokener(jsonString.toString()).nextValue();
+            int i;
+            for (i=0;i<jsonArray.length();i++){
+                    debitInfoList.add(new DebitInfo(jsonArray.getJSONObject(i)));
 
-            for (int i=0;i<jsonArray.length();i++){
-                debitInfoList.add(new DebitInfo(jsonArray.getJSONObject(i)));
             }
+
+
+            /*for (int j=0; j<debitInfoList.size();j++) {
+
+                DebitInfo s = debitInfoList.get(j);
+                if (s.getId()==id){
+                    debitInfoListTemp.add(s);
+                }
+
+            }*/
+
 
         }finally {
             if (reader != null)
+
                 reader.close();
 
         }

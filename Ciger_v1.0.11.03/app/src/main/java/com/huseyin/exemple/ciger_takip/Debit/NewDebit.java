@@ -42,7 +42,7 @@ public class NewDebit extends AppCompatActivity implements Serializable{
             DebitInfo newDebitInfo= new DebitInfo();
 
             newDebitInfo.setmName(debitName.getSelectedItem().toString());
-            Toast.makeText(this," "+debitName.getSelectedItem().toString()+"Borcu Eklendi",Toast.LENGTH_LONG).show();
+            Toast.makeText(this," "+debitName.getSelectedItem().toString()+" Borcu Eklendi",Toast.LENGTH_LONG).show();
             newDebitInfo.setmDate(eDebitDate.getText().toString());
             newDebitInfo.setmCollectionDate(eDebitCollection.getText().toString());
             newDebitInfo.setmDesc(eDebitDesc.getText().toString());

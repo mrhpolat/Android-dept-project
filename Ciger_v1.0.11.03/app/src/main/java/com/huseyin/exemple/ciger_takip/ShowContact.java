@@ -45,7 +45,7 @@ public class ShowContact extends AppCompatActivity implements Serializable {
         }
         else if (id==R.id.borc_list){
           Intent intent_debit = new Intent(this, DebitMain.class);
-          Log.i("Position","++"+position);
+          Log.i("Position","________"+position);
           intent_debit.putExtra("id",position);
           startActivity(intent_debit);
       }

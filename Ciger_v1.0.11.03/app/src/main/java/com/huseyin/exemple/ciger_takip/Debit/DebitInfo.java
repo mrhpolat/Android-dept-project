@@ -14,6 +14,7 @@ public class DebitInfo implements Serializable {
     private String mName,mDate,mCollectionDate,mDesc;
     private int id;
 
+
     private static final String JSON_NAME="GENEL";
     private static final String JSON_DATE="01.01.2016";
     private static final String JSON_COLLECTIONDATE="01.01.2016";
@@ -22,7 +23,7 @@ public class DebitInfo implements Serializable {
 
     public DebitInfo(JSONObject jsonObject) throws JSONException{
 
-        mName=jsonObject.getString(JSON_NAME);
+        mName =jsonObject.getString(JSON_NAME);
         mDate=jsonObject.getString(JSON_DATE);
         mCollectionDate=jsonObject.getString(JSON_COLLECTIONDATE);
         mDesc=jsonObject.getString(JSON_DESCRIPTION);
@@ -41,6 +42,7 @@ public class DebitInfo implements Serializable {
         jsonObject.put(JSON_NAME,mName);
         jsonObject.put(JSON_DATE,mDate);
         jsonObject.put(JSON_COLLECTIONDATE,mCollectionDate);
+        jsonObject.put(JSON_DESCRIPTION,mDesc);
         jsonObject.put(String.valueOf(JSON_USERID),id);
 
         return jsonObject;
@@ -86,4 +88,6 @@ public class DebitInfo implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
+
+
 }
