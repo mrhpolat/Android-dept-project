@@ -41,12 +41,14 @@ public class DebitMain extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_debit);
 
+        id=getIntent().getIntExtra("id",-1);
+
         mdebitAdapter=new DebitAdapter();
         debit_listview=(ListView) findViewById(R.id.listView_ciger);
+
         final Intent in_new_debit=new Intent(this,NewDebit.class);
         Intent in_showcontact=new Intent(this, ShowContact.class);
 
-        id=getIntent().getIntExtra("id",-1);
         //new debit Create
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_debit);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -57,10 +59,9 @@ public class DebitMain extends AppCompatActivity implements Serializable {
             }
         });
 
-        if(debit_listview!=null){
+        //if(debit_listview!=null){
             debit_listview.setAdapter(mdebitAdapter);
-
-        }
+        //}
         //new debit
         DebitInfo mNewDebitSave= (DebitInfo) getIntent().getSerializableExtra("new_debit");
         if (mNewDebitSave!=null){
@@ -75,12 +76,16 @@ public class DebitMain extends AppCompatActivity implements Serializable {
     public class DebitAdapter extends BaseAdapter{
 
         private JSONSerializerDebit mSerializer;
+
         List<DebitInfo> mdebitlists=new ArrayList<DebitInfo>();
 
+
+
         public DebitAdapter(){
+            Log.e("Exection, Hata: "," "+id);
             mSerializer=new JSONSerializerDebit("debit.json",DebitMain.this.getApplicationContext());
             try {
-                mdebitlists = mSerializer.load();
+                mdebitlists = mSerializer.load(id);
             }catch (Exception e){
                 mdebitlists =new ArrayList<DebitInfo>();
             }
