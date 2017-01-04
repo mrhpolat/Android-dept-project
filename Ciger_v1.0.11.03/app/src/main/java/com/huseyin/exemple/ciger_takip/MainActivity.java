@@ -1,97 +1,33 @@
 package com.huseyin.exemple.ciger_takip;
-
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
+import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.huseyin.exemple.ciger_takip.Confirm.Confirm;
+import com.huseyin.exemple.ciger_takip.SqLite.DataManger;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+public class MainActivity extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity implements Serializable{
-
-    private PhoneAdapter mPhoneAdapter;
-    public static ContactInfo tempKisi;
-    public boolean mdelete=false;
+    public boolean delete_confirm=false;
     ListView listView_kisiler;
-    List<ContactInfo> contactslists =new ArrayList<ContactInfo>();
-    ImageView imvDelete;
-    int mValue=-1;
-
-    @Override
-    protected void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        final Intent intent_show_contact=new Intent(this,ShowContact.class);
-        final Intent intent_new_contact=new Intent(this,NewContact.class);
-        final Intent intent_update_contact=new Intent(this,UpdateContact.class);
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               startActivity(intent_new_contact);
-            }
-        });
-
-        mPhoneAdapter=new PhoneAdapter();
-
-        listView_kisiler=(ListView)findViewById(R.id.listView_Contact);
-
-        if (listView_kisiler!=null) {
-            listView_kisiler.setAdapter(mPhoneAdapter);
-
-            listView_kisiler.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    tempKisi = (ContactInfo) mPhoneAdapter.getItem(position);
-                    intent_show_contact.putExtra("selectedContact", tempKisi);
-                    intent_show_contact.putExtra("position", position);
-                    startActivity(intent_show_contact);
-                }
-            });
-            //new record
-            ContactInfo mNewContactSave = (ContactInfo) getIntent().getSerializableExtra("new_contact");
-            if (mNewContactSave != null) {
-                createNewContact(mNewContactSave);
-            }
-            //delete contact
-            ContactInfo mDeleteContact =  (ContactInfo) getIntent().getSerializableExtra("deleteContact");
-
-            if ((Integer) getIntent().getSerializableExtra("position_delete") != null)
-                mValue =(Integer) getIntent().getSerializableExtra("position_delete");
-            if (mValue!=-1)
-            delete(mDeleteContact, mValue);
-
-            ContactInfo mUpdateContact=  (ContactInfo) getIntent().getSerializableExtra("updateContact");
-
-            if ((Integer) getIntent().getSerializableExtra("updatePosition") != null)
-                mValue =(Integer) getIntent().getSerializableExtra("updatePosition");
-            if (mValue!=-1)
-                update(mUpdateContact, mValue);
-        }
-    }
-
+    ContactAdapter contactAdapter;
+    public static ContactInfo tempKisi;
+    DataManger db;
+    Cursor c;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -108,123 +44,100 @@ public class MainActivity extends AppCompatActivity implements Serializable{
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-      /*  if(id==R.id.action_add){
-
-            DialogNewContact dialogNewKisi = new DialogNewContact();
-            dialogNewKisi.show(getFragmentManager(),"");
-
-        }*/
-
-        return super.onOptionsItemSelected(item);
+       if(id==R.id.refresh){
+           final Intent mainActivity=new Intent(this,MainActivity.class);
+           startActivity(mainActivity);
+       }
+       return super.onOptionsItemSelected(item);
     }
 
-    public void createNewContact(ContactInfo k){
-        mPhoneAdapter.addKisi(k);
-        mPhoneAdapter.saveNewKisi();
-    }
+    @Override
+    protected void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-    public void delete(Object k, int i){
-        ContactInfo n=(ContactInfo)k;
-        Confirm confirm=new Confirm();
-        if (mdelete==false) {
-            confirm.sendContactSelected(n, i,"MainActivity");
-            confirm.show(getFragmentManager(), "");
-        }
-       else if (mdelete==true){
+        final Intent intent_show_contact=new Intent(this,ShowContact.class);
+        final Intent intent_new_contact=new Intent(this,NewContact.class);
 
-        mPhoneAdapter.mdelete(n,i);
-        mPhoneAdapter.saveNewKisi();
-            mdelete=false;
-    }
-
-    }
-
-    public void update(ContactInfo k, int i){
-        tempKisi=k;
-        mValue=i;
-        mPhoneAdapter.mUpdate(tempKisi,mValue);
-        mPhoneAdapter.saveNewKisi();
-    }
-
-    public class PhoneAdapter extends BaseAdapter {
-
-        private JSONSerializer  mSerializer;
-        List<ContactInfo> contactlists =new ArrayList<ContactInfo>();
-
-        public PhoneAdapter(){
-            mSerializer=new JSONSerializer("PhoneBook.json",MainActivity.this.getApplicationContext());
-            try {
-                contactlists = mSerializer.load();
-            }catch (Exception e){
-                contactlists =new ArrayList<ContactInfo>();
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               startActivity(intent_new_contact);
             }
-        }
+        });
 
-        public void saveNewKisi(){
-            try {
-                mSerializer.save(contactlists);
-            }catch (Exception e){
-                Log.e("Error Saving... :","",e);
-            }
-        }
+        db = new DataManger(this);
 
-        @Override
-        public int getCount() {
-            return contactlists.size();
-        }
+        listView_kisiler=(ListView)findViewById(R.id.listView_Contact);
+        //db.deleteContact("2","CONTACT");
+        c = db.selectAll("CONTACT");
+        contactAdapter = new ContactAdapter(this, c);
 
-        @Override
-        public Object getItem(int position) {
-            return contactlists.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-
-            if (convertView==null){
-                LayoutInflater inflater=(LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.fragment_contact,parent, false);
-            }
-
-            TextView txtName=(TextView)convertView.findViewById(R.id.txtName);
-            TextView txtPhoneNumber=(TextView)convertView.findViewById(R.id.txtPhoneNumber);
-           // Layout lyo_contact_name=(Layout)convertView.findViewById(R.id.lyo_contact_name);
-            ImageView imvDelete=(ImageView)convertView.findViewById(R.id.imv_delete_icon);
-
-            final ContactInfo tempKisi= contactlists.get(position);
-
-            txtName.setText(tempKisi.getmName());
-            txtPhoneNumber.setText(tempKisi.getmPhoneNumber());
-            imvDelete.setOnClickListener(new View.OnClickListener() {
-
+        if (listView_kisiler != null) {
+            listView_kisiler.setAdapter(contactAdapter);
+            listView_kisiler.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onClick(View v)  {
-                    delete(tempKisi,position);
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    intent_show_contact.putExtra("idd",Integer.parseInt(c.getString(0)));
+                    startActivity(intent_show_contact);
+                }
+            });
+        }
+    }
+    public void delete(int id){
+        db.deleteContact(id,"CONTACT");
+        Intent mainActivity=new Intent(this,MainActivity.class);
+        startActivity(mainActivity);
+
+    }
+
+    public class ContactAdapter extends CursorAdapter {
+
+        public ContactAdapter(Context context, Cursor cursor) {
+            super(context, cursor, 0);
+        }
+
+
+        @Override
+        public View newView(Context context, Cursor cursor, ViewGroup parent) {
+            return LayoutInflater.from(context).inflate(R.layout.fragment_contact, parent, false);
+        }
+
+        @Override
+        public void bindView(View view, Context context, final Cursor cursor) {
+
+            TextView txtName = (TextView) view.findViewById(R.id.txtName);
+            TextView txtPhoneNumber = (TextView) view.findViewById(R.id.txtPhoneNumber);
+            ImageView imvDelete = (ImageView) view.findViewById(R.id.imv_delete_icon);
+
+
+            final int id = cursor.getInt(0);
+            final String Name = cursor.getString(1);
+            String email = cursor.getString(2);
+            String phone = cursor.getString(3);
+
+
+            imvDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Confirm confirm =new Confirm();
+                    confirm.sendContactSelected(id,"MainActivity",Name);
+                    confirm.show(getFragmentManager(),"");
+
+
 
                 }
             });
+            txtName.setText(Name);
+            txtPhoneNumber.setText(phone);
 
-            return convertView;
-        }
-
-        public void addKisi(ContactInfo n){
-            contactlists.add(n);
-            notifyDataSetChanged();
-        }
-
-        public void mdelete(ContactInfo n, int i){
-            contactlists.remove(i);
-            notifyDataSetChanged();
-        }
-        public void mUpdate(ContactInfo n, int i){
-            contactlists.set(i,n);
-            notifyDataSetChanged();
         }
     }
-
 }
+
+
+

@@ -165,7 +165,7 @@ public class DebitMain extends AppCompatActivity implements Serializable {
                     //menu içeriğinde neler yapılacağı seçilecek
                     switch (item.getItemId()){
                         case R.id.debit_delete:
-                            delete(deleteDebit,position);
+                            delete(position);
                     }
 
                     return false;
@@ -178,7 +178,7 @@ public class DebitMain extends AppCompatActivity implements Serializable {
             mdebitlists.add(n);
             notifyDataSetChanged();
         }
-        public void mdelete(DebitInfo n, int i){
+        public void mdelete(int i){
             mdebitlists.remove(i);
             notifyDataSetChanged();
         }
@@ -189,16 +189,15 @@ public class DebitMain extends AppCompatActivity implements Serializable {
         mdebitAdapter.saveNewKisi();
     }
 
-    public void delete(Object k, int i){
-        DebitInfo n=(DebitInfo)k;
+    public void delete(int i){
         Confirm confirm=new Confirm();
         if (mdelete==false) {
-            confirm.sendContactSelected(n, i,"DebitMain");
-            confirm.show(getFragmentManager(), "");
+           // confirm.sendContactSelected(i,"DebitMain","Selam");
+          //  confirm.show(getFragmentManager(), "");
         }
         else if (mdelete==true){
 
-            mdebitAdapter.mdelete(n,i);
+            mdebitAdapter.mdelete(i);
             mdebitAdapter.saveNewKisi();
             mdelete=false;
         }

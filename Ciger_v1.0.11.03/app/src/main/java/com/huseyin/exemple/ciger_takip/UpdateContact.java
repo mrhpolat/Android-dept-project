@@ -1,11 +1,15 @@
 package com.huseyin.exemple.ciger_takip;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+
+import com.huseyin.exemple.ciger_takip.SqLite.DataManger;
 
 import java.io.Serializable;
 
@@ -16,9 +20,10 @@ import java.io.Serializable;
 public class UpdateContact extends AppCompatActivity implements Serializable {
 
     EditText editName,editPhoneNumber,editEmail;
-    ContactInfo mContactInfo;
-    Intent mainactivity;
-    int  position=-1;
+    Intent showContact;
+    int idd =-1;
+    Cursor c;
+    DataManger db;
 
     protected void onCreate(Bundle saveInstaceState){
         super.onCreate(saveInstaceState);
@@ -29,18 +34,17 @@ public class UpdateContact extends AppCompatActivity implements Serializable {
         editName=(EditText)findViewById(R.id.etxtName);
         editPhoneNumber=(EditText)findViewById(R.id.etxtPhoneNumber);
         editEmail=(EditText)findViewById(R.id.etxtEmail);
+        idd = getIntent().getIntExtra("idd",-1);
+        db = new DataManger(this);
+        Log.i("ID update : ", " " + idd);
 
-
-
-         mContactInfo=(ContactInfo)getIntent().getSerializableExtra("selectedContact");
-
-         position = (Integer) getIntent().getSerializableExtra("position");
-
-
-        editName.setText(mContactInfo.getmName());
-        editPhoneNumber.setText(mContactInfo.getmPhoneNumber());
-        editEmail.setText(mContactInfo.getmEmail());
-
+        c = db.selectItem("CONTACT", idd);
+        if (c.moveToFirst()) {
+            editName.setText(c.getString(1).toString());
+            editPhoneNumber.setText(c.getString(2).toString());
+            editEmail.setText(c.getString(3).toString());
+            c.close();
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -58,21 +62,18 @@ public class UpdateContact extends AppCompatActivity implements Serializable {
         //noinspection SimplifiableIfStatement
 
         if(id==R.id.newContactSave){
-            mainactivity=new Intent(this,MainActivity.class);
+            showContact =new Intent(this,ShowContact.class);
 
-            ContactInfo updateContact = new ContactInfo();
+            db.updateContact(idd,editName.getText().toString(),editEmail.getText().toString(),editPhoneNumber.getText().toString());
+            showContact.putExtra("idd",idd);
 
-            updateContact.setmName(editName.getText().toString());
-            updateContact.setmPhoneNumber(editPhoneNumber.getText().toString());
-            updateContact.setmEmail(editEmail.getText().toString());
-
-            mainactivity.putExtra("updateContact",updateContact);
-            mainactivity.putExtra("updatePosition", position);
-            startActivity(mainactivity);
+           startActivity(showContact);
         }
         else if (id==R.id.newContactCancel){
-            mainactivity=new Intent(this,MainActivity.class);
-            startActivity(mainactivity);
+            showContact =new Intent(this,ShowContact.class);
+
+            showContact.putExtra("idd",idd);
+            startActivity(showContact);
         }
 
         return super.onOptionsItemSelected(item);

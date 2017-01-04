@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import com.huseyin.exemple.ciger_takip.SqLite.DataManger;
+
 import java.io.Serializable;
 
 /**
@@ -17,6 +19,7 @@ public class NewContact extends AppCompatActivity implements Serializable {
 
     EditText editName,editPhoneNumber,editEmail;
     Intent mainactivity;
+    DataManger db;
 
     protected void onCreate(final Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
@@ -41,15 +44,12 @@ public class NewContact extends AppCompatActivity implements Serializable {
         //noinspection SimplifiableIfStatement
         if(id==R.id.newContactSave){
             mainactivity=new Intent(this,MainActivity.class);
+            db = new DataManger(this);
 
-            ContactInfo newContactInfo = new ContactInfo();
+            db.insertContact(editName.getText().toString(),editEmail.getText().toString(),editPhoneNumber.getText().toString());
 
-            newContactInfo.setmName(editName.getText().toString());
-            newContactInfo.setmPhoneNumber(editPhoneNumber.getText().toString());
-            newContactInfo.setmEmail(editEmail.getText().toString());
-
-            mainactivity.putExtra("new_contact", newContactInfo);
            startActivity(mainactivity);
+
         }
         else if (id==R.id.newContactCancel){
             mainactivity=new Intent(this,MainActivity.class);

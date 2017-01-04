@@ -3,5 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.huseyin.exemple.ciger_takip.MainActivity">
 
+    <item
+        android:title="@string/btn_str_refresh"
+        android:id="@+id/refresh"
+        android:icon="@drawable/refresh"
+        app:showAsAction="ifRoom"
+        />
 
 </menu>
