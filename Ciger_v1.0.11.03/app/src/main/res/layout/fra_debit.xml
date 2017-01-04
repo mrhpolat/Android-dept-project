@@ -40,7 +40,7 @@
             android:text="Borç Tahsilat Tarihi"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/debit_collection"
+            android:id="@+id/credit_date"
             />
     </LinearLayout>
 

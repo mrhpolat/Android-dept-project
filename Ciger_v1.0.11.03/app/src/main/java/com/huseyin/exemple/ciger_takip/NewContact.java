@@ -45,9 +45,7 @@ public class NewContact extends AppCompatActivity implements Serializable {
         if(id==R.id.newContactSave){
             mainactivity=new Intent(this,MainActivity.class);
             db = new DataManger(this);
-
             db.insertContact(editName.getText().toString(),editEmail.getText().toString(),editPhoneNumber.getText().toString());
-
            startActivity(mainactivity);
 
         }

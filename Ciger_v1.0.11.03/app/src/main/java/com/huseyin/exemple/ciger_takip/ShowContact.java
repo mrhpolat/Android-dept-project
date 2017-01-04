@@ -37,16 +37,15 @@ public class ShowContact extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handxle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        int idd = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.updateSave) {
-            // intent_update_contact.putExtra("position",position);
+        if (idd == R.id.updateSave) {
             startActivity(intent_update_contact);
-        } else if (id == R.id.borc_list) {
+
+        } else if (idd == R.id.borc_list) {
             Intent intent_debit = new Intent(this, DebitMain.class);
-            //  Log.i("Position","________"+position);
-            //  intent_debit.putExtra("idd",position);
+            intent_debit.putExtra("id",id);
             startActivity(intent_debit);
         }
 
@@ -91,6 +90,7 @@ public class ShowContact extends AppCompatActivity {
 
 
         if (update == true) {
+            Intent I =new Intent();
             intent_update_contact = new Intent(this, UpdateContact.class);
             intent_update_contact.putExtra("idd",id);
         }

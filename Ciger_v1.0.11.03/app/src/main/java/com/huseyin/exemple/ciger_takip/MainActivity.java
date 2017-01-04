@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         db = new DataManger(this);
+       // db.privateSql("drop table DEBIT");
+
 
         listView_kisiler=(ListView)findViewById(R.id.listView_Contact);
         //db.deleteContact("2","CONTACT");
@@ -87,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     }
+
+
     public void delete(int id){
         db.deleteContact(id,"CONTACT");
         Intent mainActivity=new Intent(this,MainActivity.class);

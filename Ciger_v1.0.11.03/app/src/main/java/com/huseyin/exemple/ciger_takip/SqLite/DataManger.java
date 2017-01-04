@@ -19,16 +19,42 @@ public class DataManger {
     public static final String TABLE_ROW_NAME = "name";
     public static final String TABLE_ROW_PHONE = "phone";
 
-    private static final String DB_NAME = "ciger_db";
+    private static final String DB_NAME = "ciger_db.db";
     private static final int DB_VERSION = 1;
     private static final String TABLE__ROWS_DEBIT_NAME = "debit_name";
-    private static final String TABLE__ROWS_INSDATE = "debit_name";
-    private static final String TABLE__ROWS_COLLECTIONDATE = "debit_name";
-    private static final String TABLE__ROWS_DESCRIPTION = "debit_name";
+    private static final String TABLE__ROWS_INSDATE = "debit_insdate";
+    private static final String TABLE__ROWS_CREDITDATE = "debit_creditdate";
+    private static final String TABLE__ROWS_DESCRIPTION = "debit_desc";
     private static final String TABLE_ROW_EMAIL = "email";
 
     private static final String TABLE_CONTACT = "CONTACT";
     private static final String TABLE_DEBIT = "DEBIT";
+
+    private String CONTACT = "create table "
+            + TABLE_CONTACT + " ("
+            + TABLE_ROW_ID
+            + " integer primary key autoincrement not null,"
+            + TABLE_ROW_NAME
+            + " text not null,"
+            + TABLE_ROW_EMAIL
+            + " text not null,"
+            + TABLE_ROW_PHONE
+            + " text not null);";
+
+    private String DEBIT = "create table "
+            + TABLE_DEBIT + " ("
+            + TABLE_ROW_ID
+            + " integer primary key autoincrement not null,"
+            + TABLE_ROW_Contact_ID
+            + " text not null,"
+            + TABLE__ROWS_DEBIT_NAME
+            + " text not null,"
+            + TABLE__ROWS_INSDATE
+            + " text not null,"
+            + TABLE__ROWS_CREDITDATE
+            + " text not null,"
+            + TABLE__ROWS_DESCRIPTION
+            + " text not null);";
 
 
     public DataManger(Context context){
@@ -48,6 +74,7 @@ public class DataManger {
         db.execSQL(query);
         db.close();
     }
+
     public void updateContact(int id, String name, String email, String phone){
         db.isOpen();
         String query = "UPDATE " + TABLE_CONTACT + " SET " + TABLE_ROW_NAME + " = '" + name + "', " + TABLE_ROW_EMAIL + " = '" + email + "', " + TABLE_ROW_PHONE + " = '" + phone + "' WHERE "+TABLE_ROW_ID +" = '" + id+"'";
@@ -64,19 +91,11 @@ public class DataManger {
         return c;
     }
 
-    public void insertDebit(String name, String contact_id,String insdate,String collectionDate, String description){
+    public void insertDebit(String name, String contact_id,String insdate,String creditdate, String description){
         db.isOpen();
-        String query="INSERT INTO "+TABLE_DEBIT+
-                " ("+TABLE__ROWS_DEBIT_NAME+", "
-                +TABLE_ROW_Contact_ID+", "
-                +TABLE__ROWS_INSDATE+", "
-                +TABLE__ROWS_COLLECTIONDATE+", "
-                +TABLE__ROWS_DESCRIPTION+") " +
-                "VALUES ("+"'" + name +"'"+", "
-                +"'" +contact_id +"'"+", "
-                +"'" +insdate +"'"+", "
-                +"'" +collectionDate +"'"+", "
-                +"'" +description +"'"+");";
+        String query="INSERT INTO "+TABLE_DEBIT + " ("+TABLE__ROWS_DEBIT_NAME+", " +TABLE_ROW_Contact_ID+", "+ TABLE__ROWS_INSDATE+", " + TABLE__ROWS_CREDITDATE +", "+TABLE__ROWS_DESCRIPTION+") " +
+                "VALUES ("+"'" + name +"'"+", "+"'" +contact_id +"'"+", " +"'" +insdate +"'"+", " +"'" +creditdate +"'"+", "  +"'" +description +"'"+");";
+
         Log.i("insertDebit() =  ",query);
 
         db.execSQL(query);
@@ -98,6 +117,12 @@ public class DataManger {
 
     }
 
+    public Cursor selectDebitAll(String id){
+        Cursor c = db.rawQuery("SELECT *" + " from DEBIT WHERE contact_id='" +
+                id +"'", null);
+        return c;
+    }
+
     public Cursor selectItem(String table_name,int id){
 
         Cursor c = db.rawQuery("SELECT *" + " from " +
@@ -107,17 +132,26 @@ public class DataManger {
 
     }
 
+    public void privateSql(String query){
+        Log.i("Create Sql : ", "" + query);
+      //  db.execSQL(DEBIT);
+       // db.execSQL(CONTACT);
+        db.execSQL(query);
+        //db.execSQL("Drop Table CONTACT");
+        //db.execSQL("Drop Table DEBIT");
+
+    }
+
     private class CustomSQLiteOpenHelper extends SQLiteOpenHelper {
 
         public CustomSQLiteOpenHelper(Context context){
             super(context,DB_NAME,null,DB_VERSION);
-
         }
 
         @Override
         public void onCreate(SQLiteDatabase db) {
 
-            String newTableQueryString = "create table "
+            /*String newTableQueryString = "create table "
                     + TABLE_CONTACT + " ("
                     + TABLE_ROW_ID
                     + " integer primary key autoincrement not null,"
@@ -128,10 +162,7 @@ public class DataManger {
                     + TABLE_ROW_PHONE
                     + " text not null);";
 
-
-            db.execSQL(newTableQueryString);
-
-           /* newTableQueryString = "create table "
+           String newTableQueryString2 = "create table "
                     + TABLE_DEBIT + " ("
                     + TABLE_ROW_ID
                     + " integer primary key autoincrement not null,"
@@ -141,12 +172,15 @@ public class DataManger {
                     + " text not null,"
                     + TABLE__ROWS_INSDATE
                     + " text not null,"
-                    + TABLE__ROWS_COLLECTIONDATE
+                    + TABLE__ROWS_CREDITDATE
                     + " text not null,"
                     + TABLE__ROWS_DESCRIPTION
-                    + " text not null);";
+                    + " text not null);";*/
 
-            db.execSQL(newTableQueryString);*/
+            Log.i("Contat: ", "oluştu : " + CONTACT);
+            Log.i("Debit: ", "oluştu : " + DEBIT);
+            db.execSQL(CONTACT);
+            db.execSQL(DEBIT);
 
         }
 

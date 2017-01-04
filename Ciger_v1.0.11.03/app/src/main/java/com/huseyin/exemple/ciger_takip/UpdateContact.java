@@ -41,8 +41,8 @@ public class UpdateContact extends AppCompatActivity implements Serializable {
         c = db.selectItem("CONTACT", idd);
         if (c.moveToFirst()) {
             editName.setText(c.getString(1).toString());
-            editPhoneNumber.setText(c.getString(2).toString());
-            editEmail.setText(c.getString(3).toString());
+            editPhoneNumber.setText(c.getString(3).toString());
+            editEmail.setText(c.getString(2).toString());
             c.close();
         }
     }

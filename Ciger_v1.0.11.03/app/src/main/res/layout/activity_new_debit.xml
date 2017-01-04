@@ -19,6 +19,24 @@
         android:layout_weight="0.05"
         />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/new_txt_debit"
+        android:layout_weight="0.05"
+        android:textSize="18sp"
+        android:hint="@string/debit_date"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/new_txt_credit"
+        android:layout_weight="0.05"
+        android:textSize="18sp"
+        android:text="@string/debit_credit"
+        />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,53 +45,6 @@
         android:id="@+id/etxt_debit_desc"
         android:hint="@string/debit_desc"
          />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="35dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView5"
-            android:layout_weight="8"
-            android:textSize="18sp"
-            android:hint="@string/debit_date"
-            />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_debit_date"
-            android:layout_weight="2"
-            android:text="@string/debit_date"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="38dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtcre"
-            android:layout_weight="1"
-            android:textSize="18sp"
-            android:text="@string/debit_credit"
-            />
-
-        <Button
-            android:text="Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button2"
-            android:layout_weight="1"
-            />
-
-    </LinearLayout>
 
 
 </LinearLayout>
