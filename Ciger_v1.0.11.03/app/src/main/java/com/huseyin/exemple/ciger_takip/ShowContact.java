@@ -2,11 +2,13 @@ package com.huseyin.exemple.ciger_takip;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.huseyin.exemple.ciger_takip.Debit.DebitMain;
@@ -23,6 +25,7 @@ public class ShowContact extends AppCompatActivity {
     int id = -1;
     Intent intent_update_contact, intent_mainactivity;
     Boolean update = false;
+    String email,name;
     DataManger db;
     Cursor c,count;
 
@@ -80,6 +83,10 @@ public class ShowContact extends AppCompatActivity {
            mName.setText(c.getString(1).toString());
            mPhoneNumber.setText(c.getString(3).toString());
            mEmail.setText(c.getString(2).toString());
+           email = c.getString(2).toString();
+
+
+
            c.close();
        }
         count = db.cout("DEBIT",String.valueOf(id));
@@ -90,6 +97,31 @@ public class ShowContact extends AppCompatActivity {
 
 
         if (update == true) {
+
+            mEmail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_SENDTO);
+                    intent.setType("message/rfc822");
+                    intent.putExtra(Intent.EXTRA_EMAIL, email);
+                    intent.setData(Uri.parse("mailto:"+email));
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "emailSubject");
+                    intent.putExtra(Intent.EXTRA_TEXT, "emailContent");
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_FROM_BACKGROUND);
+                    try {
+
+                        startActivity(intent);
+                    } catch (android.content.ActivityNotFoundException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                        Log.d("Email error:",e.toString());
+                    }
+
+                }
+            });
+
+
             intent_update_contact = new Intent(this, UpdateContact.class);
             intent_update_contact.putExtra("idd",id);
         }

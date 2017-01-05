@@ -132,7 +132,7 @@ public class DataManger {
     }
     public Cursor selectEMPLOYEE(String table_name,String code,String pass){
 
-        Cursor c = db.rawQuery("SELECT 1" + " from " +
+        Cursor c = db.rawQuery("SELECT 1 " + " from " +
                 table_name + " WHERE " + TABLE_ROW_USERCODE + " = '" + code+"' and "+ TABLE_ROW_PASSWORD + " = '" + pass+"'", null);
         return c;
 
@@ -141,6 +141,9 @@ public class DataManger {
     public void privateSql(String query){
         Log.i("Create Sql : ", "" + query);
         db.execSQL(query);
+        //db.execSQL(query);
+      //  db.execSQL(query);
+       // db.execSQL(query);
     }
 
     private class CustomSQLiteOpenHelper extends SQLiteOpenHelper {
@@ -182,6 +185,8 @@ public class DataManger {
             Log.i("Debit: ", "oluştu : " + DEBIT);
             db.execSQL(CONTACT);
             db.execSQL(DEBIT);
+            db.execSQL(EMPLOYEE);
+
 
         }
 

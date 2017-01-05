@@ -23,8 +23,8 @@ public class Login extends AppCompatActivity {
     Button btnLogin;
     DataManger db;
     Cursor c;
-    String name;
-    int bool=0;
+    String name,dbcode,dbpass;
+    int bool;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -41,19 +41,25 @@ public class Login extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               final String ucode = user.getText().toString();
-               final String password = pass.getText().toString();
+               final String ucode = user.getText().toString().trim().toUpperCase();
+               final String password = pass.getText().toString().trim().toUpperCase();
               //  if ((ucode!=null && password!=null)||(ucode==''))
                 c=db.selectEMPLOYEE("EMPLOYEE",ucode,password);
                 if (c.moveToFirst()){
-                    bool = Integer.parseInt(c.getString(0));
+                   try{
+                       bool = Integer.parseInt(c.getString(0));
+                   }catch (Exception e){
+                       notmainactivity();
+                   }
                 }else
                     Log.e("cursordan değer alınamadı...", "");
+
+
                 Log.i("Login durumu",""+bool);
-                if (bool==1){
+                if (bool>=1){
                     mainactivity();
                 }
-                else
+                else if (bool==0)
                     notmainactivity();
             }
         });
@@ -62,8 +68,9 @@ public class Login extends AppCompatActivity {
     private void mainactivity(){
         Intent main = new Intent(this, MainActivity.class);
         startActivity(main);
+        bool=0;
     }
     private void notmainactivity(){
-        Toast.makeText(this, "Kullanıcı adınız veya şifreniz hatalı lütfen tekrar deneyiniz..", Toast.LENGTH_LONG);
+        Toast.makeText(this, "Kullanıcı adınız veya şifreniz hatalı lütfen tekrar deneyiniz..", Toast.LENGTH_LONG).show();
     }
 }
