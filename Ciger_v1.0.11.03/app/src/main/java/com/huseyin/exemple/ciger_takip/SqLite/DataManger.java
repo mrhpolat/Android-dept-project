@@ -32,32 +32,9 @@ public class DataManger {
     private static final String TABLE_CONTACT = "CONTACT";
     private static final String TABLE_DEBIT = "DEBIT";
 
-    private String CONTACT = "create table "
-            + TABLE_CONTACT + " ("
-            + TABLE_ROW_ID
-            + " integer primary key autoincrement not null,"
-            + TABLE_ROW_NAME
-            + " text not null,"
-            + TABLE_ROW_EMAIL
-            + " text not null,"
-            + TABLE_ROW_PHONE
-            + " text not null);";
+    private String CONTACT = "create table " + TABLE_CONTACT + " (" + TABLE_ROW_ID + " integer primary key autoincrement not null," + TABLE_ROW_NAME  + " text not null," + TABLE_ROW_EMAIL + " text not null," + TABLE_ROW_PHONE + " text not null);";
 
-    private String DEBIT = "create table "
-            + TABLE_DEBIT + " ("
-            + TABLE_ROW_ID
-            + " integer primary key autoincrement not null,"
-            + TABLE_ROW_Contact_ID
-            + " text not null,"
-            + TABLE__ROWS_DEBIT_NAME
-            + " text not null,"
-            + TABLE__ROWS_INSDATE
-            + " text not null,"
-            + TABLE__ROWS_CREDITDATE
-            + " text not null,"
-            + TABLE__ROWS_DESCRIPTION
-            + " text not null," +
-            TABLE_ROW_STATUS +"text);";
+    private String DEBIT = "create table " + TABLE_DEBIT + " (" + TABLE_ROW_ID + " integer primary key autoincrement not null," + TABLE_ROW_Contact_ID + " text not null," + TABLE__ROWS_DEBIT_NAME + " text not null," + TABLE__ROWS_INSDATE + " text not null," + TABLE__ROWS_CREDITDATE  + " text not null," + TABLE__ROWS_DESCRIPTION + " text not null," + TABLE_ROW_STATUS +"text);";
 
 
     public DataManger(Context context){
@@ -88,9 +65,19 @@ public class DataManger {
         db.close();
     }
 
-    public Cursor cout(String table_name){
+    public void updateDebit(int id, String name, String debitDate, String creditDate, String desc) {
+        db.isOpen();
+        String query = "UPDATE " + TABLE_DEBIT + " SET " + TABLE__ROWS_DEBIT_NAME + " = '" + name + "', " + TABLE__ROWS_INSDATE + " = '" + debitDate + "', " + TABLE__ROWS_CREDITDATE + " = '" + creditDate + "', " + TABLE__ROWS_DESCRIPTION + " = '" + desc + "' WHERE "+TABLE_ROW_ID +" = '" + id+"'";
+
+        Log.i("updateContact() =  ", query);
+
+        db.execSQL(query);
+        db.close();
+    }
+
+    public Cursor cout(String table_name,String contactid){
         Cursor c = db.rawQuery("SELECT count(1)" + " from " +
-                table_name, null);
+                table_name +" where " +TABLE_ROW_Contact_ID+ " = '"+contactid+"' and status='A'", null);
         return c;
     }
 
@@ -121,11 +108,13 @@ public class DataManger {
     }
 
     public Cursor selectDebitAll(String id){
-        Cursor c = db.rawQuery("SELECT *" + " from DEBIT WHERE contact_id='" +
+        Cursor c = db.rawQuery("SELECT *" + " from DEBIT WHERE status='A' and contact_id='" +
                 id +"'", null);
         Log.i("SelectDebit All Sql: ","SELECT * from DEBIT WHERE status='A' and contact_id=" + id);
         return c;
     }
+
+
 
     public Cursor selectItem(String table_name,int id){
 

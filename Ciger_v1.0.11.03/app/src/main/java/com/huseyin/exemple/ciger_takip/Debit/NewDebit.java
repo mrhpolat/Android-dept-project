@@ -49,12 +49,12 @@ public class NewDebit extends AppCompatActivity {
                 db.insertDebit(debitName.getSelectedItem().toString(), String.valueOf(user), txtdebit.getText().toString(), txtcredit.getText().toString(), eDebitDesc.getText().toString());
 
 
-            debitmain.putExtra("id",user);
+            debitmain.putExtra("contactid",user);
             startActivity(debitmain);
         }
         else if (id==R.id.newContactCancel){
             debitmain=new Intent(this,DebitMain.class);
-            debitmain.putExtra("id",user);
+            debitmain.putExtra("contactid",user);
             startActivity(debitmain);
         }
 

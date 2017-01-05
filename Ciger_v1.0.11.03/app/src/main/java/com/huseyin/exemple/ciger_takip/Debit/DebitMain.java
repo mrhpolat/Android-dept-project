@@ -79,9 +79,8 @@ public class DebitMain extends AppCompatActivity implements Serializable {
             }
         });
 
-
-
     }
+
     public class DebitAdapter extends CursorAdapter {
 
         public DebitAdapter(Context context, Cursor cursor) {
@@ -141,6 +140,7 @@ public class DebitMain extends AppCompatActivity implements Serializable {
                         case R.id.debit_paid:
                             String query = "update DEBIT set status = 'F' where _id='" + id+"'";
                             db.privateSql(query);
+                            intentdebitmain();
                             break;
                         case R.id.debit_update:
                             intentupdate(id);
@@ -167,12 +167,6 @@ public class DebitMain extends AppCompatActivity implements Serializable {
 
     }
 
-    public void intentshow(int id){
-        debitShow = new Intent(this, DebitShow.class);
-        debitShow.putExtra("id", id);
-        Log.i("IDDD---- ", "" + id);
-        startActivity(debitShow);
-    }
 
     public void intentupdate(int id){
         Intent updatedebit=new Intent(this,DebitUpdate.class);
@@ -180,6 +174,18 @@ public class DebitMain extends AppCompatActivity implements Serializable {
         startActivity(updatedebit);
     }
 
+    public void intentshow(int id){
+        debitShow = new Intent(this, DebitShow.class);
+        debitShow.putExtra("id", id);
+        Log.i("IDDD---- ", "" + id);
+        startActivity(debitShow);
+    }
+    public void intentdebitmain(){
+        Intent debitmain = new Intent(this, DebitMain.class);
+        debitmain.putExtra("contactid", contactid);
+        Log.i("IDDD---- ", "" + contactid);
+        startActivity(debitmain);
+    }
 
 
 }

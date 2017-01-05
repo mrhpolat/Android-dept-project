@@ -45,7 +45,7 @@ public class ShowContact extends AppCompatActivity {
 
         } else if (idd == R.id.borc_list) {
             Intent intent_debit = new Intent(this, DebitMain.class);
-            intent_debit.putExtra("id",id);
+            intent_debit.putExtra("contactid",id);
             startActivity(intent_debit);
         }
 
@@ -82,7 +82,7 @@ public class ShowContact extends AppCompatActivity {
            mEmail.setText(c.getString(2).toString());
            c.close();
        }
-        count = db.cout("DEBIT");
+        count = db.cout("DEBIT",String.valueOf(id));
         if(count.moveToFirst()){
             mCredit.setText(count.getString(0).toString());
             Log.i("Contact Count: ", count.getString(0).toString());
