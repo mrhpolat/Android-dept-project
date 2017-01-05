@@ -26,6 +26,8 @@ public class DataManger {
     private static final String TABLE__ROWS_CREDITDATE = "debit_creditdate";
     private static final String TABLE__ROWS_DESCRIPTION = "debit_desc";
     private static final String TABLE_ROW_EMAIL = "email";
+    private static final String TABLE_ROW_STATUS = "status";
+
 
     private static final String TABLE_CONTACT = "CONTACT";
     private static final String TABLE_DEBIT = "DEBIT";
@@ -54,7 +56,8 @@ public class DataManger {
             + TABLE__ROWS_CREDITDATE
             + " text not null,"
             + TABLE__ROWS_DESCRIPTION
-            + " text not null);";
+            + " text not null," +
+            TABLE_ROW_STATUS +"text);";
 
 
     public DataManger(Context context){
@@ -93,8 +96,8 @@ public class DataManger {
 
     public void insertDebit(String name, String contact_id,String insdate,String creditdate, String description){
         db.isOpen();
-        String query="INSERT INTO "+TABLE_DEBIT + " ("+TABLE__ROWS_DEBIT_NAME+", " +TABLE_ROW_Contact_ID+", "+ TABLE__ROWS_INSDATE+", " + TABLE__ROWS_CREDITDATE +", "+TABLE__ROWS_DESCRIPTION+") " +
-                "VALUES ("+"'" + name +"'"+", "+"'" +contact_id +"'"+", " +"'" +insdate +"'"+", " +"'" +creditdate +"'"+", "  +"'" +description +"'"+");";
+        String query="INSERT INTO "+TABLE_DEBIT + " ("+TABLE__ROWS_DEBIT_NAME+", " +TABLE_ROW_Contact_ID+", "+ TABLE__ROWS_INSDATE+", " + TABLE__ROWS_CREDITDATE +", "+TABLE__ROWS_DESCRIPTION+", "+TABLE_ROW_STATUS+") " +
+                "VALUES ("+"'" + name +"'"+", "+"'" +contact_id +"'"+", " +"'" +insdate +"'"+", " +"'" +creditdate +"'"+", "  +"'" +description +"', 'A'"+");";
 
         Log.i("insertDebit() =  ",query);
 
@@ -120,6 +123,7 @@ public class DataManger {
     public Cursor selectDebitAll(String id){
         Cursor c = db.rawQuery("SELECT *" + " from DEBIT WHERE contact_id='" +
                 id +"'", null);
+        Log.i("SelectDebit All Sql: ","SELECT * from DEBIT WHERE status='A' and contact_id=" + id);
         return c;
     }
 

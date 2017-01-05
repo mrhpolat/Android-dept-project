@@ -11,13 +11,11 @@ import android.widget.EditText;
 
 import com.huseyin.exemple.ciger_takip.SqLite.DataManger;
 
-import java.io.Serializable;
-
 /**
  * Created by Huseyin on 2.11.2016.
  */
 
-public class UpdateContact extends AppCompatActivity implements Serializable {
+public class UpdateContact extends AppCompatActivity {
 
     EditText editName,editPhoneNumber,editEmail;
     Intent showContact;
@@ -39,6 +37,7 @@ public class UpdateContact extends AppCompatActivity implements Serializable {
         Log.i("ID update : ", " " + idd);
 
         c = db.selectItem("CONTACT", idd);
+
         if (c.moveToFirst()) {
             editName.setText(c.getString(1).toString());
             editPhoneNumber.setText(c.getString(3).toString());

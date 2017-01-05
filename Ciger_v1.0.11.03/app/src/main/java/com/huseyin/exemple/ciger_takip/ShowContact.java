@@ -82,7 +82,7 @@ public class ShowContact extends AppCompatActivity {
            mEmail.setText(c.getString(2).toString());
            c.close();
        }
-        count = db.cout("CONTACT");
+        count = db.cout("DEBIT");
         if(count.moveToFirst()){
             mCredit.setText(count.getString(0).toString());
             Log.i("Contact Count: ", count.getString(0).toString());
@@ -90,7 +90,6 @@ public class ShowContact extends AppCompatActivity {
 
 
         if (update == true) {
-            Intent I =new Intent();
             intent_update_contact = new Intent(this, UpdateContact.class);
             intent_update_contact.putExtra("idd",id);
         }

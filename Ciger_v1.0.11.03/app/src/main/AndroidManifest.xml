@@ -46,7 +46,16 @@
         <activity
             android:name="com.huseyin.exemple.ciger_takip.Debit.NewDebit"
             android:label="@string/title_debit_lists"
-            android:parentActivityName=".Debit.DebitMain"
+            >
+        </activity>
+        <activity
+            android:name="com.huseyin.exemple.ciger_takip.Debit.DebitShow"
+            android:label="@string/title_debit_lists"
+            >
+        </activity>
+        <activity
+            android:name="com.huseyin.exemple.ciger_takip.Debit.DebitUpdate"
+            android:label="@string/title_debit_lists"
             >
         </activity>
     </application>

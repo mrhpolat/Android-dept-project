@@ -4,15 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:title="@string/btn_str_back"
-        android:id="@+id/debit_2"
+        android:title="@string/btn_str_update"
+        android:id="@+id/debit_update"
         android:icon="@drawable/ico_menu_cancel"
         app:showAsAction="never"
         />
 
     <item
-        android:title="@string/btn_str_back"
-        android:id="@+id/debit_3"
+        android:title="@string/btn_str_paid"
+        android:id="@+id/debit_paid"
         android:icon="@drawable/ico_menu_cancel"
         app:showAsAction="never"
         />
@@ -20,6 +20,11 @@
     <item
         android:title="@string/btn_str_delete"
         android:id="@+id/debit_delete"
+        app:showAsAction="never"
+        />
+    <item
+        android:title="@string/btn_str_info"
+        android:id="@+id/debit_info"
         app:showAsAction="never"
         />
 </menu>

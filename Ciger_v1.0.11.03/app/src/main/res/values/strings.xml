@@ -12,9 +12,11 @@
     <string name="str_delete_icon">Delete Icon</string>
     <string name="str_ad_soyad">Adı Soyadı</string>
     <string name="btn_str_back">Back</string>
+    <string name="btn_str_paid">Paid</string>
     <string name="btn_str_save">Save</string>
     <string name="btn_str_delete">Delete</string>
     <string name="btn_str_update">Update</string>
+    <string name="btn_str_info">Show Debit</string>
     <string name="btn_str_refresh">Refresh</string>
     <string name="str_email">E-Mail Adresinizi Giriniz.</string>
     <string name="str_show_email">Email:</string>
@@ -25,6 +27,7 @@
     <string name="debit_desc">Borc Nedeni</string>
     <string name="debit_credit">Tahsilat Tarihi</string>
     <string name="debit_type_prompt">Borç Türünü Seçiniz.</string>
+    <string name="debitname">Borç Türü</string>
 
 
     <string-array name="spinner_debit_type">

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.36"
+        >
+        <TextView
+            android:text="@string/debitname"
+            android:layout_width="wrap_content"
+            android:id="@+id/debitName1"
+            android:textSize="20sp"
+            android:layout_weight="0.11"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@string/debit_credit"
+            android:layout_width="match_parent"
+            android:id="@+id/creditDate1"
+            android:textSize="20sp"
+            android:layout_weight="0.14"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@string/debit_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/debitDate1"
+            android:textSize="20sp"
+            android:layout_weight="0.09" />
+
+        <TextView
+            android:text="@string/debit_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/Desc1"
+            android:textSize="20sp"
+            android:layout_weight="0.08" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_weight="0.62"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/debitname"
+            android:layout_width="match_parent"
+            android:id="@+id/debitName"
+            android:textSize="20sp"
+            android:layout_weight="0.11"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@string/debit_credit"
+            android:layout_width="match_parent"
+            android:id="@+id/creditDate"
+            android:textSize="20sp"
+            android:layout_weight="0.14"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@string/debit_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/debitDate"
+            android:textSize="20sp"
+            android:layout_weight="0.09" />
+
+        <TextView
+            android:text="@string/debit_desc"
+            android:layout_width="match_parent"
+            android:layout_height="139dp"
+            android:id="@+id/Desc"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

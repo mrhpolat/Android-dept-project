@@ -70,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         db = new DataManger(this);
-       // db.privateSql("drop table DEBIT");
+        //db.privateSql("ALTER TABLE DEBIT ADD status text");
+
 
 
         listView_kisiler=(ListView)findViewById(R.id.listView_Contact);
@@ -131,8 +132,6 @@ public class MainActivity extends AppCompatActivity {
                     Confirm confirm =new Confirm();
                     confirm.sendContactSelected(id,"MainActivity",Name);
                     confirm.show(getFragmentManager(),"");
-
-
 
                 }
             });

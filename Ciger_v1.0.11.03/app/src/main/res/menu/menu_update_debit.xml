@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item
+        android:id="@+id/updateSave"
+        android:title="@string/btn_str_update"
+        app:showAsAction="never"
+        />
+    <item
+        android:title="@string/btn_str_paid"
+        android:id="@+id/debit_paid"
+        app:showAsAction="never"
+        />
+</menu>

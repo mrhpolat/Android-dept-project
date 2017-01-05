@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.huseyin.exemple.ciger_takip.ContactInfo;
+import com.huseyin.exemple.ciger_takip.Debit.DebitMain;
 import com.huseyin.exemple.ciger_takip.MainActivity;
 
 /**
@@ -37,6 +38,10 @@ public class Confirm extends DialogFragment {
                     case "MainActivity":
                         MainActivity mainActivity = (MainActivity) getActivity();
                         mainActivity.delete(n);
+                        break;
+                    case "DebitMain":
+                        DebitMain debitMain = (DebitMain) getActivity();
+                        debitMain.delete(n);
                         break;
                     default:
                         break;
