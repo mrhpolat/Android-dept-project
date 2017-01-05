@@ -25,7 +25,7 @@ public class ShowContact extends AppCompatActivity {
     int id = -1;
     Intent intent_update_contact, intent_mainactivity;
     Boolean update = false;
-    String email,name;
+    String email,name,mcount;
     DataManger db;
     Cursor c,count;
 
@@ -84,6 +84,7 @@ public class ShowContact extends AppCompatActivity {
            mPhoneNumber.setText(c.getString(3).toString());
            mEmail.setText(c.getString(2).toString());
            email = c.getString(2).toString();
+           name = c.getString(1).toString();
 
 
 
@@ -92,6 +93,7 @@ public class ShowContact extends AppCompatActivity {
         count = db.cout("DEBIT",String.valueOf(id));
         if(count.moveToFirst()){
             mCredit.setText(count.getString(0).toString());
+            mcount = count.getString(0).toString();
             Log.i("Contact Count: ", count.getString(0).toString());
         }
 
@@ -105,8 +107,8 @@ public class ShowContact extends AppCompatActivity {
                     intent.setType("message/rfc822");
                     intent.putExtra(Intent.EXTRA_EMAIL, email);
                     intent.setData(Uri.parse("mailto:"+email));
-                    intent.putExtra(Intent.EXTRA_SUBJECT, "emailSubject");
-                    intent.putExtra(Intent.EXTRA_TEXT, "emailContent");
+                    intent.putExtra(Intent.EXTRA_SUBJECT, name + "Borç Bildirimi");
+                    intent.putExtra(Intent.EXTRA_TEXT, "Sayın "+name+", \n "+ mcount +" Borcunuz bulumaktadır.");
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.addFlags(Intent.FLAG_FROM_BACKGROUND);
                     try {
