@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/letter_b"
+            android:id="@+id/imageView2"
+            android:layout_marginLeft="90dp"
+            android:contentDescription="" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/letter_t"
+            android:id="@+id/imageView3"
+            android:contentDescription="" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/letter_s"
+            android:id="@+id/imageView4"
+            android:layout_marginRight="40dp"
+            android:contentDescription="" />
+
+    </LinearLayout>
+
+    <TextView
+        android:text="Borç Takip Sistemi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView6"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:textAlignment="center"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="115dp"
+        >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            >
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:srcCompat="@mipmap/ico_user"
+                android:id="@+id/imageView5"
+                tools:ignore="ContentDescription" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPersonName"
+                android:hint="User Code"
+                android:background = "#fffefe"
+                android:ems="10"
+                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:id="@+id/username" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:srcCompat="@mipmap/ico_key_locked"
+                android:id="@+id/imageView6"
+                android:layout_marginTop="10dp"
+                android:contentDescription="" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+                android:hint="Password"
+                android:background = "#fffefe"
+                android:ems="10"
+                android:id="@+id/pass"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="10dp"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:text="LOGIN"
+        android:layout_width="221dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnLogin"
+        android:layout_marginLeft="90dp"
+        />
+
+
+</LinearLayout>
