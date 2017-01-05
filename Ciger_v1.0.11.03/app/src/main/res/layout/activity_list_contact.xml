@@ -10,6 +10,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/listView_Contact"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="59sp"
+
         />
 </LinearLayout>

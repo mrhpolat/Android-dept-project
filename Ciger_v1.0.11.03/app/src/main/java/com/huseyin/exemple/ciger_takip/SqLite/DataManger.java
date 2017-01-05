@@ -29,13 +29,19 @@ public class DataManger {
     private static final String TABLE_ROW_STATUS = "status";
 
 
+    private static final String TABLE_ROW_USERCODE = "usercode";
+    private static final String TABLE_ROW_PASSWORD = "password";
+
+
     private static final String TABLE_CONTACT = "CONTACT";
     private static final String TABLE_DEBIT = "DEBIT";
+    private static final String TABLE_EMPLOYEE = "EMPLOYEE";
 
     private String CONTACT = "create table " + TABLE_CONTACT + " (" + TABLE_ROW_ID + " integer primary key autoincrement not null," + TABLE_ROW_NAME  + " text not null," + TABLE_ROW_EMAIL + " text not null," + TABLE_ROW_PHONE + " text not null);";
 
     private String DEBIT = "create table " + TABLE_DEBIT + " (" + TABLE_ROW_ID + " integer primary key autoincrement not null," + TABLE_ROW_Contact_ID + " text not null," + TABLE__ROWS_DEBIT_NAME + " text not null," + TABLE__ROWS_INSDATE + " text not null," + TABLE__ROWS_CREDITDATE  + " text not null," + TABLE__ROWS_DESCRIPTION + " text not null," + TABLE_ROW_STATUS +"text);";
 
+    private String EMPLOYEE= "CREATE TABLE "+ TABLE_EMPLOYEE+" ("+TABLE_ROW_ID+ " INTEGER AUTO_INCREMENT , "+TABLE_ROW_USERCODE + " text primary key not null," + TABLE_ROW_PASSWORD+ " text not null, " + TABLE_ROW_EMAIL+ " text not null, " + TABLE_ROW_NAME + " text not null);";
 
     public DataManger(Context context){
 
@@ -124,15 +130,17 @@ public class DataManger {
         return c;
 
     }
+    public Cursor selectEMPLOYEE(String table_name,String code,String pass){
+
+        Cursor c = db.rawQuery("SELECT 1" + " from " +
+                table_name + " WHERE " + TABLE_ROW_USERCODE + " = '" + code+"' and "+ TABLE_ROW_PASSWORD + " = '" + pass+"'", null);
+        return c;
+
+    }
 
     public void privateSql(String query){
         Log.i("Create Sql : ", "" + query);
-      //  db.execSQL(DEBIT);
-       // db.execSQL(CONTACT);
         db.execSQL(query);
-        //db.execSQL("Drop Table CONTACT");
-        //db.execSQL("Drop Table DEBIT");
-
     }
 
     private class CustomSQLiteOpenHelper extends SQLiteOpenHelper {
